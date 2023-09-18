@@ -13,6 +13,6 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use('/api/personagens', personagensRoutes);
+app.use('/api/postagens', personagensRoutes);
 
 module.exports = app;
