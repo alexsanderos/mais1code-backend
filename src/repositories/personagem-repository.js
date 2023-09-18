@@ -1,8 +1,13 @@
 const clientBase = require('../db/db');
 
-exports.obterPostagens = async ()  => {
-    return clientBase.query(`SELECT * FROM depoimentos ORDER BY id`);
-};
+try {
+    exports.obterPostagens = async ()  => {
+        return clientBase.query(`SELECT * FROM depoimentos ORDER BY id`);
+    };
+} catch (error) {
+    console.error(error);
+    throw error;
+}
 
 exports.criarPostagem = async (id, nome, depoimento) => {
     try{
