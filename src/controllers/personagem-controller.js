@@ -14,9 +14,10 @@ exports.get = async (req, res) => {
 
 exports.post = async (req, res) => {
     try{
-        const {id, nome, depoimento} = req.body;
-        const resultItem = await personagemRepository.criarPostagem(id, nome, depoimento);
-        res.status(201).json({ message: 'Postagem criada com sucesso', data: resultInsert});
+        const conteudo = req.body;
+        
+        const resultItem = await personagemRepository.criarPostagem(conteudo.nome, conteudo.depoimento);
+        res.status(201).json({ message: 'Postagem criada com sucesso', data: resultItem});
         
     }catch (error){
         console.error(error);

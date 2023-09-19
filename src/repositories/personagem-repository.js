@@ -9,19 +9,7 @@ try {
     throw error;
 }
 
-exports.criarPostagem = async (id, nome, depoimento) => {
-    try{
-
-        const query = `INSERT INTO depoimentos (id, nome, depoimento) VALUES (id, nome, depoimento)`;
-        const result = await clientBase.query(query, [id, nome, depoimento]);
-        return result.rows;
-    }catch (error){
-        console.error(error);
-        throw error;
-    }     
-}
-
-/** exports.criarPostagem = async (id, nome, depoimento)  => {
-    return clientBase.query(`INSERT INTO depoimentos (id, nome, depoimento) values (id, nome, meu depoimento)`);
+exports.criarPostagem = async (nome, depoimento) => {
+    console.log(depoimento);
+    return clientBase.query(`INSERT INTO depoimentos (nome, depoimento) values ($1, $2)`, [nome, depoimento]);
 };
-**/
