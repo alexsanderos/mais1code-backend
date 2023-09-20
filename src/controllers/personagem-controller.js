@@ -1,3 +1,4 @@
+const { Server } = require('http');
 var personagemRepository = require('../repositories/personagem-repository');
 
 exports.get = async (req, res) => {
@@ -15,7 +16,6 @@ exports.get = async (req, res) => {
 exports.post = async (req, res) => {
     try{
         const conteudo = req.body;
-        
         const resultItem = await personagemRepository.criarPostagem(conteudo.nome, conteudo.depoimento);
         res.status(201).json({ message: 'Postagem criada com sucesso', data: resultItem});
         
@@ -24,3 +24,8 @@ exports.post = async (req, res) => {
         res.status(500).json({ error: 'Ocorreu um erro ao criar a postagem'});
     }
 };
+
+exports.delete = async (req, res) => {
+    const resultItem = await personagemRepository.excluirPostagem(req.params.id);
+    res.status(201).json({ message: 'Postagem excuida com sucesso', data: resultItem});
+}
