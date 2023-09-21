@@ -36,7 +36,12 @@ exports.delete = async (req, res) => {
 }
 
 exports.put = async(req, res) => {
-    var conteudo = req.body;
+    try {
+        var conteudo = req.body;
     var resultItem = await postagemRepository.atualizarPostagem(conteudo.depoimento, conteudo.id);
     res.status(200).json({ massage: 'Postagem modificada com sucesso', data: resultItem});
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Ocorreu um erro ao atualizar a postagem'});
+    }
 }
