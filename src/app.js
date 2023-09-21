@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const personagensRoutes = require('./routes/personagens-route');
+const personagensRoutes = require('./routes/postagem-route');
 
 app.use(express.urlencoded({extended: true})); 
 app.use(express.json());
@@ -13,6 +13,5 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use('/api/personagens', personagensRoutes);
-
+app.use('/api/postagens', personagensRoutes);
 module.exports = app;
