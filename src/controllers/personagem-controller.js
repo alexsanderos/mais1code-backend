@@ -34,7 +34,7 @@ exports.delete = async (req, res) => {
         res.status(500).json({ error: 'Ocorreu um erro ao excluir a postagem'});
     }
 }
-
+ //
 exports.put = async (req, res) => {
     const pegaId = req.params;
     const conteudo = req.body;
