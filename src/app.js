@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const personagensRoutes = require('./routes/personagens-route');
+const personagensRoutes = require('./routes/postagem-route');
 
 app.use(express.urlencoded({extended: true})); 
 app.use(express.json());
