@@ -8,7 +8,7 @@ try {
     console.error(error);
     throw error;
 }
-
+ 
 try {
     exports.criarPostagem = async(nome, depoimento) => {
         return clientBase.query(`INSERT INTO depoimentos (nome, depoimento) values ($1, $2)`, [nome, depoimento]);
