@@ -28,6 +28,6 @@ try {
 }
 
 exports.updatePostagem = async(id, depoimento) => {
-    console.log(id, depoimento);
+    //console.log(id, depoimento);
     return clientBase.query(`UPDATE depoimentos SET depoimento = $1 WHERE id = $2`, [depoimento, id]);
 }
