@@ -1,4 +1,5 @@
 const clientBase = require('../db/db');
+
 exports.obterPostagens = async() => {
     try {
         return clientBase.query(`SELECT * FROM depoimentos ORDER BY id`);

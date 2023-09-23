@@ -4,7 +4,7 @@ const contatoController = require('../controllers/contato-controller');
 
 router.get('/get', contatoController.get); //Rota Get
 router.post('/post', contatoController.post); //Rota Post
-//router.delete('/delete/:id', contatoController.delete); //Rota Delete
-//router.put('/update', contatoController.put); //Rota Update
+router.delete('/delete/:id', contatoController.delete); //Rota Delete
+router.put('/update', contatoController.put); //Rota Update
 
 module.exports = router;
