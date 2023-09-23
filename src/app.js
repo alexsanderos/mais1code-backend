@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-const personagensRoutes = require('./routes/postagem-route');
+const postagensRoutes = require('./routes/postagem-route');
+const contatosRoutes = require('./routes/contato-route');
 
 app.use(express.urlencoded({extended: true})); 
 app.use(express.json());
@@ -13,5 +14,6 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use('/api/postagens', personagensRoutes);
+app.use('/api/postagens', postagensRoutes);
+app.use('/api/contatos', contatosRoutes);
 module.exports = app;
