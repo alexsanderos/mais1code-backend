@@ -1,4 +1,6 @@
+const e = require('express');
 const clientBase = require('../db/db');
+const { jsParser } = require('swagger-autogen/src/code-parser');
 
 exports.obterContatos = async() => {
     try {
@@ -9,14 +11,42 @@ exports.obterContatos = async() => {
     }
 };
 
+const MAX_CARACTERES_NOME = 150;
+const MAX_CARACTERES_EMAIL = 150;
+const MAX_CARACTERES_CIDADE = 150;
+const MAX_CARACTERES_ESTADO = 150;
+const MAX_CARACTERES_ASSUNTO = 150;
+const MAX_CARACTERES_MENSAGEM = 255;
+
+const validarDados = (valor, max) => {
+    if (valor.length > max) {
+        throw new Error(`O valor "${valor}" é inválido, pois temos o limite de ${max} caracteres.`);
+    } else if (valor.length < 3){
+        throw new Error(`O valor "${valor}" é inválido, pois ele deve ser maior de 3 digitos.`);
+    } 
+};
+const validarTelefone = (valor) => {
+    if (valor.length != 11){
+        throw new Error(`O telefone deve possuir 11 digitos.`);
+    }
+};
+
 exports.criarContato = async(id, nome, email, cidade, estado, telefone, assunto, mensagem) => {
+    validarDados(email, MAX_CARACTERES_EMAIL);
+    validarDados(nome, MAX_CARACTERES_NOME);
+    validarDados(cidade, MAX_CARACTERES_CIDADE);
+    validarDados(estado, MAX_CARACTERES_ESTADO);
+    validarDados(assunto, MAX_CARACTERES_ASSUNTO);
+    validarDados(mensagem, MAX_CARACTERES_MENSAGEM);
+    validarTelefone(telefone);
+
     try {
-        return clientBase.query(`INSERT INTO contatos (id, nome, email, cidade, estado, telefone, assunto, mensagem) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`, [id, nome, email, cidade, estado, telefone, assunto, mensagem]);
+        return await clientBase.query(`INSERT INTO contatos (id, nome, email, cidade, estado, telefone, assunto, mensagem) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`, [id, nome, email, cidade, estado, telefone, assunto, mensagem]);
     } catch (error) {
         console.error(error);
-        throw error;        
+        throw error;
     }
-}
+};
 
 exports.excluirContato = async(id) => {
     try {

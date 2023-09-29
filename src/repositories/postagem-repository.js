@@ -9,9 +9,9 @@ exports.obterPostagens = async() => {
     }
 }; 
 
-exports.criarPostagem = async(nome, depoimento) => {
+exports.criarPostagem = async(id, nome, depoimento) => {
     try {
-        return clientBase.query(`INSERT INTO depoimentos (nome, depoimento) values ($1, $2)`, [nome, depoimento]);
+        return clientBase.query(`INSERT INTO depoimentos (id, nome, depoimento) values ($1, $2, $3)`, [id, nome, depoimento]);
     } catch (error) {
         console.error(error);
         throw error;
