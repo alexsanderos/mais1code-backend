@@ -44,6 +44,7 @@ exports.criarContato = async(id, nome, email, cidade, estado, telefone, assunto,
         return await clientBase.query(`INSERT INTO contatos (id, nome, email, cidade, estado, telefone, assunto, mensagem) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`, [id, nome, email, cidade, estado, telefone, assunto, mensagem]);
     } catch (error) {
         console.error(error);
+        res.status(400).json({ error: 'Ocorreu um erro ao inserir o contato no DB.'});
         throw error;
     }
 };
@@ -53,6 +54,7 @@ exports.excluirContato = async(id) => {
         return clientBase.query(`DELETE FROM contatos WHERE id = $1`, [id]);
     } catch (error) {
         console.error(error);
+        res.status(400).json({ error: 'Ocorreu um erro ao excluir o contato no DB.'});
         throw error;
     }
 }
@@ -62,6 +64,7 @@ exports.atualizarContato = async(assunto, mensagem, id) => {
         return clientBase.query(`UPDATE contatos SET assunto = $1, mensagem = $2 WHERE id = $3`,[assunto, mensagem, id]);
     } catch (error) {
         console.error(error);
+        res.status(400).json({ error: 'Ocorreu um erro ao atualizar o contato no DB.'});
         throw error;
     }
 }
