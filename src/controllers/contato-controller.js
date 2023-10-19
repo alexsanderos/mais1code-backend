@@ -25,7 +25,8 @@ exports.post = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        const resultItem = await contatoRepository.excluirContato(req.params.id);
+        const conteudo = req.body;
+        const resultItem = await contatoRepository.excluirContato(conteudo.id);
         res.status(202).json({ message: 'Contato excluido com sucesso!.', data: resultItem});
     } catch (error) {
         console.error(error);
@@ -40,7 +41,7 @@ exports.put = async(req, res) => {
          res.status(203).json({ message: 'Contato atualizado com sucesso!.', data: resultItem});
     } catch (error) {
         console.error(error);
-        res.status(5003).json({ error: 'Ocorreu um erro ao atualizar o contato.'});
+        res.status(503).json({ error: 'Ocorreu um erro ao atualizar o contato.'});
     }
 }
 //

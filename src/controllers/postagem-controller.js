@@ -26,7 +26,8 @@ exports.post = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        const resultItem = await postagemRepository.excluirPostagem(req.params.id);
+        const conteudo = req.body;
+        const resultItem = await postagemRepository.excluirPostagem(conteudo.id);
         res.status(202).json({ message: 'Postagem excuida com sucesso!.', data: resultItem});
     } catch (error) {
         console.error(error);
