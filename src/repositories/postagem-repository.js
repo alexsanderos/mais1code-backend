@@ -9,16 +9,15 @@ exports.obterPostagens = async() => {
     }
 }; 
 
-exports.criarPostagem = async(id, nome, depoimento) => {
+exports.criarPostagem = async(nome, depoimento) => {
     try {
-        return clientBase.query(`INSERT INTO depoimentos (id, nome, depoimento) values ($1, $2, $3)`, [id, nome, depoimento]);
+        return clientBase.query(`INSERT INTO postagens (nome, depoimento) values ($1, $2)`, [nome, depoimento]);
     } catch (error) {
         console.error(error);
         res.status(400).json({ error: 'Ocorreu um erro ao inserir o contato no DB.'});
         throw error;
     }
 };
-
 exports.excluirPostagem = async(id) => {
     try {
         return clientBase.query(`DELETE FROM depoimentos WHERE id = $1`, [id]);

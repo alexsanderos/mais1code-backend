@@ -31,7 +31,7 @@ const validarTelefone = (valor) => {
     }
 };
 
-exports.criarContato = async(id, nome, email, cidade, estado, telefone, assunto, mensagem) => {
+exports.criarContato = async(nome, email, cidade, estado, telefone, assunto, mensagem) => {
     validarDados(email, MAX_CARACTERES_EMAIL);
     validarDados(nome, MAX_CARACTERES_NOME);
     validarDados(cidade, MAX_CARACTERES_CIDADE);
@@ -41,7 +41,7 @@ exports.criarContato = async(id, nome, email, cidade, estado, telefone, assunto,
     validarTelefone(telefone);
 
     try {
-        return await clientBase.query(`INSERT INTO contatos (id, nome, email, cidade, estado, telefone, assunto, mensagem) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`, [id, nome, email, cidade, estado, telefone, assunto, mensagem]);
+        return await clientBase.query(`INSERT INTO contatos (nome, email, cidade, estado, telefone, assunto, mensagem) VALUES ($1, $2, $3, $4, $5, $6, $7)`, [nome, email, cidade, estado, telefone, assunto, mensagem]);
     } catch (error) {
         console.error(error);
         res.status(400).json({ error: 'Ocorreu um erro ao inserir o contato no DB.'});
