@@ -44,4 +44,3 @@ exports.put = async(req, res) => {
         res.status(500).json({ error: 'Ocorreu um erro ao atualizar o contato.'});
     }
 }
-//
