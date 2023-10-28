@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const postagemController = require('../controllers/postagem-controller');
 
-router.get('/get', postagemController.get); //Rota Get
-router.post('/post', postagemController.post); //Rota Post
-router.delete('/delete/:id', postagemController.delete); //Rota Delete
-router.put('/update', postagemController.put); //Rota Update
+router.get('', postagemController.get);
+router.post('', postagemController.post);
+router.delete('', postagemController.delete);
+router.put('', postagemController.put);
 
 module.exports = router;
 

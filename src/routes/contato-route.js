@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const contatoController = require('../controllers/contato-controller');
 
-router.get('/get', contatoController.get); //Rota Get
-router.post('/post', contatoController.post); //Rota Post
-router.delete('/delete/:id', contatoController.delete); //Rota Delete
-router.put('/update', contatoController.put); //Rota Update
+router.get('', contatoController.get);
+router.post('', contatoController.post);
+router.delete('', contatoController.delete); 
+router.put('', contatoController.put); 
 
 module.exports = router;
