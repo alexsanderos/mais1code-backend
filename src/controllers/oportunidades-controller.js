@@ -1,5 +1,5 @@
 const { Server } = require('http');
-var postagemRepository = require('../repositories/oportunidades-repository');
+var oportunidadesRepository = require('../repositories/oportunidades-repository');
 
 exports.get = async(req, res) => {
     try {
