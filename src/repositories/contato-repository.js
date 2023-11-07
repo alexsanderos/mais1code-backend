@@ -10,9 +10,6 @@ exports.obterContatos = async() => {
         throw error;
     }
 }
-
-const MAX_CARACTERES_NOME = 150;
-const MAX_CARACTERES_EMAIL = 150;
 const MAX_CARACTERES_CIDADE = 150;
 const MAX_CARACTERES_ESTADO = 150;
 const MAX_CARACTERES_ASSUNTO = 150;
@@ -25,20 +22,12 @@ const validarDados = (valor, max) => {
         throw new Error(`O valor "${valor}" é inválido, pois ele deve ser maior de 3 digitos.`);
     } 
 }
-const validarTelefone = (valor) => {
-    if (valor.length != 11){
-        throw new Error(`O telefone deve possuir 11 digitos.`);
-    }
-}
 
 exports.criarContato = async(nome, email, cidade, estado, telefone, assunto, mensagem) => {
-    validarDados(email, MAX_CARACTERES_EMAIL);
-    validarDados(nome, MAX_CARACTERES_NOME);
     validarDados(cidade, MAX_CARACTERES_CIDADE);
     validarDados(estado, MAX_CARACTERES_ESTADO);
     validarDados(assunto, MAX_CARACTERES_ASSUNTO);
     validarDados(mensagem, MAX_CARACTERES_MENSAGEM);
-    validarTelefone(telefone);
 
     try {
         return await clientBase.query(`INSERT INTO contatos (nome, email, cidade, estado, telefone, assunto, mensagem) VALUES ($1, $2, $3, $4, $5, $6, $7)`, [nome, email, cidade, estado, telefone, assunto, mensagem]);
