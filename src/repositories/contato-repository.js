@@ -9,7 +9,7 @@ exports.obterContatos = async() => {
         console.error(error);
         throw error;
     }
-};
+}
 
 const MAX_CARACTERES_NOME = 150;
 const MAX_CARACTERES_EMAIL = 150;
@@ -24,12 +24,12 @@ const validarDados = (valor, max) => {
     } else if (valor.length < 3){
         throw new Error(`O valor "${valor}" é inválido, pois ele deve ser maior de 3 digitos.`);
     } 
-};
+}
 const validarTelefone = (valor) => {
     if (valor.length != 11){
         throw new Error(`O telefone deve possuir 11 digitos.`);
     }
-};
+}
 
 exports.criarContato = async(nome, email, cidade, estado, telefone, assunto, mensagem) => {
     validarDados(email, MAX_CARACTERES_EMAIL);
@@ -47,7 +47,7 @@ exports.criarContato = async(nome, email, cidade, estado, telefone, assunto, men
         res.status(400).json({ error: 'Ocorreu um erro ao inserir o contato no DB.'});
         throw error;
     }
-};
+}
 
 exports.excluirContato = async(id) => {
     try {
