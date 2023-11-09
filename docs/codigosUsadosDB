@@ -1,0 +1,20 @@
+Criação da tabela depoimentos
+
+create table depoimentos (
+	id SERIAL primary key,
+	nome varchar (150),
+	depoimento text
+);
+
+Criação da tabela contatos
+
+create table contatos (
+	id SERIAL,
+	nome varchar (150),
+	email varchar (150),
+	cidade varchar (150),
+	estado varchar (150),
+	telefone bigint,
+	assunto varchar (150),
+	mensagem varchar (255)
+);
