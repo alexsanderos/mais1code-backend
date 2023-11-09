@@ -37,7 +37,7 @@ exports.delete = async(req, res) => {
 exports.put = async(req, res) => {
     try {
         var conteudo = req.body;
-        var resultItem = await oportunidadesRepository.atualizarOportunidadem(conteudo.opotunidade, conteudo.id);
+        var resultItem = await oportunidadesRepository.atualizarOportunidade(conteudo.opotunidade, conteudo.id);
         res.status(203).json({ massage: 'Oportunidade atualizada!.', data: resultItem });
     } catch (error) {
         console.error(error);

@@ -11,7 +11,7 @@ exports.obterOportunidades = async() => {
 
 exports.criarOportunidade = async(id, nome, empresa, nivel, faixa_salarial_de, faixa_salarial_ate, regime) => {
     try {
-        return clientBase.query(`INSERT INTO oportunidades (id, nome, empresa, nivel, faixa_salarial_de, faixa_salarial_ate, regime) values ($1, $2, $3, $4, $6, $7)`, [id, nome, empresa, nivel, faixa_salarial_de, faixa_salarial_ate, regime]);
+        return clientBase.query(`INSERT INTO oportunidades (id, nome, empresa, nivel, faixa_salarial_de, faixa_salarial_ate, regime) values ($1, $2, $3, $4, $5, $6, $7)`, [id, nome, empresa, nivel, faixa_salarial_de, faixa_salarial_ate, regime]);
     } catch (error) {
         console.error(error);
         res.status(400).json({ error: 'Ocorreu um erro ao inserir a oportunidade no DB.' });
