@@ -4,11 +4,9 @@ var oportunidadesRepository = require('../repositories/oportunidades-repository'
 exports.post = async(req, res) => {
     try {
         const conteudo = req.body;
-        if (!conteudo.id || !Number.isInteger(conteudo.id)) {
-            return res.status(400).json({ error: 'O campo id deve ser um número inteiro.' });
-        }
+        delete conteudo.id;
 
-        const resultItem = await oportunidadesRepository.criarOportunidade(conteudo.id, conteudo.nome, conteudo.empresa, conteudo.nivel, conteudo.faixa_salarial_de, conteudo.faixa_salarial_ate, conteudo.regime);
+        const resultItem = await oportunidadesRepository.criarOportunidade(conteudo.nome, conteudo.empresa, conteudo.nivel, conteudo.faixa_salarial_de, conteudo.faixa_salarial_ate, conteudo.regime);
         res.status(201).json({ message: 'Oportunidade criada!.', data: resultItem });
 
     } catch (error) {
@@ -34,7 +32,9 @@ exports.put = async(req, res) => {
             return res.status(400).json({ error: 'O campo id deve ser um número inteiro.' });
         }
 
-        var resultItem = await oportunidadesRepository.atualizarOportunidade(conteudo.id, conteudo.nome, conteudo.empresa, conteudo.nivel, conteudo.faixa_salarial_de, conteudo.faixa_salarial_ate, conteudo.regime);
+        var resultItem = await oportunidadesRepository.atualizarOportunidade(
+            conteudo.id, conteudo.nome, conteudo.empresa, conteudo.nivel,
+            conteudo.faixa_salarial_de, conteudo.faixa_salarial_ate, conteudo.regime);
         res.status(203).json({ message: 'Oportunidade atualizada!.', data: resultItem });
     } catch (error) {
         console.error(error);

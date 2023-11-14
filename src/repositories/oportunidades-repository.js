@@ -2,7 +2,7 @@ const clientBase = require('../db/db');
 
 exports.criarOportunidade = async(nome, empresa, nivel, faixa_salarial_de, faixa_salarial_ate, regime) => {
     try {
-        return clientBase.query(`INSERT INTO oportunidades (nome, empresa, nivel, faixa_salarial_de, faixa_salarial_ate, regime) values ($1, $2, $3, $4, $5, $6)`, [nome, empresa, nivel, faixa_salarial_de, faixa_salarial_ate, regime]);
+        return clientBase.query(`INSERT INTO oportunidades (nome, empresa, nivel, faixa_salarial_de, faixa_salarial_ate, regime) values ($1, $2, $3, $4, $5, $6) RETURNING id;`, [nome, empresa, nivel, faixa_salarial_de, faixa_salarial_ate, regime]);
     } catch (error) {
         console.error(error);
         res.status(400).json({ error: 'Ocorreu um erro ao inserir a oportunidade no DB.' });
@@ -19,7 +19,8 @@ exports.obterOportunidades = async() => {
     }
 };
 
-exports.atualizarOportunidade = async(id, nome, empresa, nivel, faixa_salarial_de, faixa_salarial_ate, regime) => {
+exports.atualizarOportunidade = async(
+    id, nome, empresa, nivel, faixa_salarial_de, faixa_salarial_ate, regime) => {
     try {
         return clientBase.query(`UPDATE oportunidades
         SET nome = $1,

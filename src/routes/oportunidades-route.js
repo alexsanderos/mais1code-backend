@@ -5,6 +5,6 @@ const oportunidadesController = require('../controllers/oportunidades-controller
 router.get('/get', oportunidadesController.get);
 router.post('/post', oportunidadesController.post);
 router.delete('/delete', oportunidadesController.delete);
-router.put('/update', oportunidadesController.put);
+router.put('/put', oportunidadesController.put);
 
 module.exports = router;
