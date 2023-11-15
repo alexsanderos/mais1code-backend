@@ -1,5 +1,11 @@
-const { Server } = require('http');
 var contatoRepository = require('../repositories/contato-repository');
+
+const MAX_CARACTERES_CIDADE = 150;
+const MAX_CARACTERES_ESTADO = 150;
+const MAX_CARACTERES_ASSUNTO = 150;
+const MAX_CARACTERES_MENSAGEM = 255;
+
+const MIN_PADRAO = 3;
 
 exports.get = async(req, res) => {
     try {
@@ -20,23 +26,54 @@ exports.post = async (req, res) => {
         const telefoneRegex = new RegExp(/^\(?[1-9]{2}\)? ?(?:[2-8]|9[0-9])[0-9]{3}\-?[0-9]{4}$/);
 
         if(!conteudo.email || !emailRegex.test(conteudo.email) || conteudo.email > 150){
-            res.status(400).json({ error: 'E-mail inválido.'});
+            return res.status(400).json({ error: 'E-mail inválido.'});
         }
         
         if(!conteudo.nome || !nomeRegex.test(conteudo.nome) || conteudo.nome < 3){
-            res.status(400).json({ error: 'Nome inválido.'});
+            return res.status(400).json({ error: 'Nome inválido.'});
         }
         
         if(!conteudo.telefone || !telefoneRegex.test(conteudo.telefone) || conteudo.telefone < 11){
-            res.status(400).json({ error: 'Telefone inválido.'});
+            return res.status(400).json({ error: 'Telefone inválido.'});
+        }
+
+        if(validarMax(conteudo.cidade, MAX_CARACTERES_CIDADE)) {
+            return res.status(400).json({error: `O valor "${conteudo.cidade}" é inválido, pois temos o limite de ${MAX_CARACTERES_CIDADE} caracteres.`}); 
+        }
+
+        if(validarMin(conteudo.cidade, MIN_PADRAO)) {
+            return res.status(400).json({error: `O valor "${conteudo.cidade}" é inválido, pois ele deve ser maior de ${MIN_PADRAO} digitos.`});
+        }
+
+        if(validarMax(conteudo.estado, MAX_CARACTERES_ESTADO)) {
+            return res.status(400).json({error: `O valor "${conteudo.estado}" é inválido, pois temos o limite de ${MAX_CARACTERES_ESTADO} caracteres.`}); 
+        }
+
+        if(validarMin(conteudo.estado, MIN_PADRAO)) {
+            return res.status(400).json({error: `O valor "${conteudo.estado}" é inválido, pois ele deve ser maior de ${MIN_PADRAO} digitos.`});
+        }
+
+        if(validarMax(conteudo.assunto, MAX_CARACTERES_ASSUNTO)) {
+            return res.status(400).json({error: `O valor "${conteudo.assunto}" é inválido, pois temos o limite de ${MAX_CARACTERES_ASSUNTO} caracteres.`}); 
+        }
+
+        if(validarMin(conteudo.assunto, MIN_PADRAO)) {
+            return res.status(400).json({error: `O valor "${conteudo.assunto}" é inválido, pois ele deve ser maior de ${MIN_PADRAO} digitos.`});
+        }
+
+        if(validarMax(conteudo.mensagem, MAX_CARACTERES_MENSAGEM)) {
+            return res.status(400).json({error: `O valor "${conteudo.mensagem}" é inválido, pois temos o limite de ${MAX_CARACTERES_MENSAGEM} caracteres.`}); 
+        }
+
+        if(validarMin(conteudo.mensagem, MIN_PADRAO)) {
+            return res.status(400).json({error: `O valor "${conteudo.mensagem}" é inválido, pois ele deve ser maior de ${MIN_PADRAO} digitos.`});
         }
 
         const resultItem = await contatoRepository.criarContato(conteudo.nome, conteudo.email, conteudo.cidade, conteudo.estado, conteudo.telefone, conteudo.assunto, conteudo.mensagem);
-        res.status(200).send({data: resultItem});
-
+        return res.status(200).send({data: resultItem});
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Ocorreu um erro ao criar o contato.'});
+        return res.status(500).json({ error: 'Ocorreu um erro ao criar o contato.'});
     }
 }
 
@@ -60,4 +97,12 @@ exports.put = async(req, res) => {
         console.error(error);
         res.status(500).json({ error: 'Ocorreu um erro ao atualizar o contato.'});
     }
+}
+
+const validarMax = (valor, max) => {
+    return valor && valor.length > max;
+}
+
+const validarMin = (valor, min) => {
+    return !valor || valor.length < min;
 }

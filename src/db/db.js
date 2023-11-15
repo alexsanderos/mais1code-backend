@@ -1,11 +1,12 @@
 const { Client } = require('pg');
+const config = require('../config/config');
 
 const client = new Client({
-    user: 'tdfdb_frg4_user',
-    host: 'dpg-cjvi8615mpss73b6nuv0-a.oregon-postgres.render.com',
-    database: 'tdfdb_frg4',
-    password: 'yLrlA2j3glQuT2u4k2P4YoUuCF4z56vk',
-    port: 5432,
+    user: process.env.DATABASE_USER || config.database.user,
+    host: process.env.DATABASE_HOST || config.database.host,
+    database: process.env.DATABASE_NAME || config.database.database,
+    password: process.env.DATABASE_PASSWORD || config.database.password,
+    port: process.env.DATABASE_PORT || config.database.port,
     ssl: {
         rejectUnauthorized: false
     }
