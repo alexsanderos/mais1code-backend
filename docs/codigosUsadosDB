@@ -18,3 +18,16 @@ create table contatos (
 	assunto varchar (150),
 	mensagem varchar (255)
 );
+
+Criação da tabela oportunidades
+
+create table oportunidades (
+	id SERIAL,
+	nome varchar (150),
+	empresa varchar (150),
+	nivel varchar (150),
+	faixa_salarial_de numeric,
+	faixa_salarial_ate numeric,
+	regime varchar (150)
+
+);
