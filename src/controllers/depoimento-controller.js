@@ -25,8 +25,7 @@ exports.post = async (req, res) => {
 }
 exports.delete = async (req, res) => {
     try {
-        const conteudo = req.body;
-        const resultItem = await depoimentoRepository.excluirDepoimento(conteudo.id);
+        const resultItem = await depoimentoRepository.excluirDepoimento(req.params.id);
         res.status(202).json({ data: resultItem});
     } catch (error) {
         console.error(error);
@@ -37,7 +36,7 @@ exports.delete = async (req, res) => {
 exports.put = async(req, res) => {
     try {
         var conteudo = req.body;
-        var resultItem = await depoimentoRepository.atualizarDepoimento(conteudo.depoimento, conteudo.id);
+        var resultItem = await depoimentoRepository.atualizarDepoimento(req.body.depoimento, req.params.id);
     res.status(203).json({ data: resultItem});
     } catch (error) {
         console.error(error);
